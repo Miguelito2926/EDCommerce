@@ -3,6 +3,8 @@ package com.ednaldo.edcommerce.services;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.entities.Product;
 import com.ednaldo.edcommerce.repositories.ProductRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,16 +21,9 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductDTO> getProducts() {
-        List<Product> all = productRepository.findAll();
-        List<ProductDTO> dtos = all.stream()
-                .map(product -> new ProductDTO(
-                        product.getId(),
-                        product.getName(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getImgUrl())).collect(Collectors.toList());
-        return dtos;
+    public Page<ProductDTO> getProducts(Pageable pageable) {
+        Page<Product> all = productRepository.findAll(pageable);
+        return all.map(ProductDTO::new);
     }
 
     public ProductDTO getProductById(Long id) throws Exception {

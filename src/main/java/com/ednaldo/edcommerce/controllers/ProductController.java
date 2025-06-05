@@ -3,6 +3,8 @@ package com.ednaldo.edcommerce.controllers;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +25,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> listProducts() {
-        return ResponseEntity.ok(productService.getProducts());
+    public ResponseEntity<Page<ProductDTO>> getProducts(Pageable pageable) {
+        return ResponseEntity.ok(productService.getProducts(pageable));
     }
 
     @GetMapping(value = "/{id}")
