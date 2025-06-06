@@ -3,8 +3,10 @@ package com.ednaldo.edcommerce.services;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.entities.Product;
 import com.ednaldo.edcommerce.repositories.ProductRepository;
+import com.ednaldo.edcommerce.services.exceptions.DatabaseException;
 import com.ednaldo.edcommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductService {
 
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -54,9 +56,14 @@ public class ProductService {
 
     public void deleteProduct(Long id) throws ResourceNotFoundException {
         if (!productRepository.existsById(id)) {
-            throw  new ResourceNotFoundException("Resource Not Found Id: " + id);
+            throw new ResourceNotFoundException("Resource Not Found Id: " + id);
         }
 
-        productRepository.deleteById(id);
+        try {
+            productRepository.deleteById(id);
+
+        }catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Falha de integridade referencial:");
+        }
     }
 }

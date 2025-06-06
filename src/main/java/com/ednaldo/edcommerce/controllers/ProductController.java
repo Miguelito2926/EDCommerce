@@ -2,6 +2,7 @@ package com.ednaldo.edcommerce.controllers;
 
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.services.ProductService;
+import com.ednaldo.edcommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,7 +51,7 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) throws ResourceNotFoundException {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
