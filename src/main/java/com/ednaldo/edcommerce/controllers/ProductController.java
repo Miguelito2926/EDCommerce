@@ -42,11 +42,16 @@ public class ProductController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(productService.getProductById(id));
-
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO, @PathVariable Long id) throws Exception {
         return ResponseEntity.ok(productService.updateProduct(productDTO, id));
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) throws Exception {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -50,7 +50,13 @@ public class ProductService {
 
         Product productSave = productRepository.save(prod);
         BeanUtils.copyProperties(productSave, productDTO);
-
         return productDTO;
+    }
+
+    public void deleteProduct(Long id) {
+        Product prod = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
+        productRepository.delete(prod);
     }
 }
