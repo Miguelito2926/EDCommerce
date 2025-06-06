@@ -6,7 +6,7 @@ import com.ednaldo.edcommerce.repositories.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatusCode;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,7 +26,7 @@ public class ProductService {
 
     public ProductDTO getProductById(Long id) throws Exception {
         var product = productRepository.findById(id)
-                .orElseThrow(() ->  new ResponseStatusException(HttpStatusCode.valueOf(404)));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         return new ProductDTO(product);
     }
@@ -36,5 +36,21 @@ public class ProductService {
         BeanUtils.copyProperties(request, product);
         productRepository.save(product);
         return new ProductDTO(product);
+    }
+
+    public ProductDTO updateProduct(ProductDTO productDTO, Long id) {
+
+        Product prod = productRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        prod.setName(productDTO.getName());
+        prod.setDescription(productDTO.getDescription());
+        prod.setPrice(productDTO.getPrice());
+        prod.setImgUrl(productDTO.getImgUrl());
+
+        Product productSave = productRepository.save(prod);
+        BeanUtils.copyProperties(productSave, productDTO);
+
+        return productDTO;
     }
 }

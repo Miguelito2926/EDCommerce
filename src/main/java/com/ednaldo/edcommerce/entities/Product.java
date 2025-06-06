@@ -1,5 +1,6 @@
 package com.ednaldo.edcommerce.entities;
 
+import com.ednaldo.edcommerce.dto.ProductDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;

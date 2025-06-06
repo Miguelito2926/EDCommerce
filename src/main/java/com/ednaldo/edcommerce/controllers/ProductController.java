@@ -44,4 +44,9 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(id));
 
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO, @PathVariable Long id) throws Exception {
+        return ResponseEntity.ok(productService.updateProduct(productDTO, id));
+    }
 }
