@@ -3,14 +3,12 @@ package com.ednaldo.edcommerce.services;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.entities.Product;
 import com.ednaldo.edcommerce.repositories.ProductRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -30,6 +28,13 @@ public class ProductService {
         var product = productRepository.findById(id)
                 .orElseThrow(() ->  new ResponseStatusException(HttpStatusCode.valueOf(404)));
 
+        return new ProductDTO(product);
+    }
+
+    public ProductDTO insertProduct(ProductDTO request) {
+        Product product = new Product();
+        BeanUtils.copyProperties(request, product);
+        productRepository.save(product);
         return new ProductDTO(product);
     }
 }
