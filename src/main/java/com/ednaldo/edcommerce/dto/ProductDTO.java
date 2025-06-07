@@ -1,15 +1,27 @@
 package com.ednaldo.edcommerce.dto;
 
 import com.ednaldo.edcommerce.entities.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
 public class ProductDTO implements Serializable {
 
     private Long id;
+
+    @NotBlank(message = "Campo requerido")
+    @Size(min = 3, max = 80, message = "Nome precisa ter de 3 a 80 caracteres.")
     private String name;
+
+    @NotBlank(message = "Campo requerido")
+    @Size(min = 10, message = "Descrição precisa ter no minímo 10 caracteres.")
     private String description;
+
+    @Positive(message = "O Preço deve ser maior que zero.")
     private Double price;
+
     private String imgUrl;
 
     public ProductDTO() {

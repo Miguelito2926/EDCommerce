@@ -3,6 +3,7 @@ package com.ednaldo.edcommerce.controllers;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.services.ProductService;
 import com.ednaldo.edcommerce.services.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public class ProductController {
 //    }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insertProduct(@RequestBody ProductDTO request) {
+    public ResponseEntity<ProductDTO> insertProduct(@Valid @RequestBody ProductDTO request) {
         ProductDTO productDTO = productService.insertProduct(request);
        return ResponseEntity.status(HttpStatus.CREATED).body(productDTO);
     }
