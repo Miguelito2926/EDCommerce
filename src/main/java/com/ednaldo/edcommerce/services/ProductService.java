@@ -1,6 +1,7 @@
 package com.ednaldo.edcommerce.services;
 
 import com.ednaldo.edcommerce.dto.ProductDTO;
+import com.ednaldo.edcommerce.dto.ProductMinDTO;
 import com.ednaldo.edcommerce.entities.Product;
 import com.ednaldo.edcommerce.repositories.ProductRepository;
 import com.ednaldo.edcommerce.services.exceptions.DatabaseException;
@@ -20,9 +21,9 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Page<ProductDTO> getProducts(String name, Pageable pageable) {
+    public Page<ProductMinDTO> getProducts(String name, Pageable pageable) {
         Page<Product> all = productRepository.searchByName(name, pageable);
-        return all.map(ProductDTO::new);
+        return all.map(ProductMinDTO::new);
     }
 
     public ProductDTO getProductById(Long id) throws ResourceNotFoundException {

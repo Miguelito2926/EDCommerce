@@ -1,6 +1,7 @@
 package com.ednaldo.edcommerce.controllers;
 
 import com.ednaldo.edcommerce.dto.ProductDTO;
+import com.ednaldo.edcommerce.dto.ProductMinDTO;
 import com.ednaldo.edcommerce.services.ProductService;
 import com.ednaldo.edcommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
@@ -39,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> getProducts(
+    public ResponseEntity<Page<ProductMinDTO>> getProducts(
             @RequestParam(value = "name", defaultValue = "") String name,
             Pageable pageable) {
         return ResponseEntity.ok(productService.getProducts(name, pageable));
