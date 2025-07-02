@@ -1,9 +1,6 @@
 package com.ednaldo.edcommerce.dto;
 
 import com.ednaldo.edcommerce.entities.Product;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 

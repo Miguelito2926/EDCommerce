@@ -1,7 +1,6 @@
 package com.ednaldo.edcommerce.dto;
 
 import com.ednaldo.edcommerce.entities.Payment;
-import jakarta.persistence.Column;
 
 import java.time.Instant;
 

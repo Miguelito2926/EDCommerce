@@ -1,4 +1,4 @@
-package com.ednaldo.edcommerce;
+package com.ednaldo.edcommerce.dto;
 
 import com.ednaldo.edcommerce.entities.Category;
 

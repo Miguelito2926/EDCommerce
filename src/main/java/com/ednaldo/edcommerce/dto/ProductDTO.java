@@ -1,6 +1,5 @@
 package com.ednaldo.edcommerce.dto;
 
-import com.ednaldo.edcommerce.CategoryDTO;
 import com.ednaldo.edcommerce.entities.Category;
 import com.ednaldo.edcommerce.entities.Product;
 import jakarta.validation.constraints.NotBlank;

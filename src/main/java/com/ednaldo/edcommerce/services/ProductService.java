@@ -1,6 +1,6 @@
 package com.ednaldo.edcommerce.services;
 
-import com.ednaldo.edcommerce.CategoryDTO;
+import com.ednaldo.edcommerce.dto.CategoryDTO;
 import com.ednaldo.edcommerce.dto.ProductDTO;
 import com.ednaldo.edcommerce.dto.ProductMinDTO;
 import com.ednaldo.edcommerce.entities.Category;

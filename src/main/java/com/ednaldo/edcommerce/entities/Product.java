@@ -1,6 +1,5 @@
 package com.ednaldo.edcommerce.entities;
 
-import com.ednaldo.edcommerce.dto.ProductDTO;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -37,8 +36,7 @@ public class Product {
         return items.stream().map(OrderItem::getOrder).toList();
     }
 
-    public Product() {
-    }
+    public Product() {}
 
     public Product(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;

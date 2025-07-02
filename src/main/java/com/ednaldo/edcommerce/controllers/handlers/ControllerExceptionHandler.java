@@ -39,7 +39,6 @@ public class ControllerExceptionHandler {
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             error.addError(fieldError.getField(), fieldError.getDefaultMessage());
         }
-
         return ResponseEntity.status(status).body(error);
     }
 }
