@@ -3,6 +3,7 @@ package com.ednaldo.edcommerce.dto;
 import com.ednaldo.edcommerce.entities.Order;
 import com.ednaldo.edcommerce.entities.OrderItem;
 import com.ednaldo.edcommerce.entities.enums.OrderStatus;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class OrderDTO {
     private OrderStatus status;
     private ClientDTO client;
     private PaymentDTO payment;
+
+    @NotEmpty(message = "Deve ter pelo menos uma categoria.")
     List<OrderItemDTO> items = new ArrayList<>();
 
     public OrderDTO() {

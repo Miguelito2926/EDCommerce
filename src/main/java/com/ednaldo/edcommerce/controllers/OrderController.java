@@ -31,4 +31,9 @@ public class OrderController {
     public ResponseEntity<OrderDTO> getProduct(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
+
+    @PostMapping
+    public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO dto) {
+        return ResponseEntity.ok(orderService.insert(dto));
+    }
 }
