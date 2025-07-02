@@ -22,17 +22,20 @@ public class OrderService {
     private final UserService userService;
     private final ProductRepository productRepository;
     private final OrderItemRepository orderItemRepository;
+    private final AuthService authService;
 
     public OrderService(
             OrderRepository orderRepository,
             UserService userService,
             ProductRepository productRepository,
-            OrderItemRepository orderItemRepository
+            OrderItemRepository orderItemRepository,
+            AuthService authService
     ) {
         this.orderRepository = orderRepository;
         this.userService = userService;
         this.productRepository = productRepository;
         this.orderItemRepository = orderItemRepository;
+        this.authService = authService;
     }
 
     @Transactional
@@ -40,6 +43,7 @@ public class OrderService {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resource Not Found Id: " + id));
 
+        authService.validateSelfOrAdmin(order.getClient().getId());
         return new OrderDTO(order);
     }
 
@@ -57,7 +61,6 @@ public class OrderService {
         }
         orderRepository.save(order);
         orderItemRepository.saveAll(order.getItems());
-
         return new OrderDTO(order);
     }
 }

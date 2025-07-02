@@ -19,9 +19,9 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CLIENT')")
     @GetMapping(value = "/{id}")
-    public ResponseEntity<OrderDTO> getProduct(@PathVariable Long id) throws Exception {
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 

@@ -3,6 +3,7 @@ package com.ednaldo.edcommerce.controllers.handlers;
 import com.ednaldo.edcommerce.dto.CustomError;
 import com.ednaldo.edcommerce.dto.ValidationError;
 import com.ednaldo.edcommerce.services.exceptions.DatabaseException;
+import com.ednaldo.edcommerce.services.exceptions.ForbiddenException;
 import com.ednaldo.edcommerce.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,13 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<CustomError> handlerDatabaseException(DatabaseException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
+        CustomError customError = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(customError);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> handlerForbiddenException(ForbiddenException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.FORBIDDEN;
         CustomError customError = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(customError);
     }
