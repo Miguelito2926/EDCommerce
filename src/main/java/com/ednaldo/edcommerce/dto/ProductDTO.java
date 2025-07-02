@@ -1,11 +1,16 @@
 package com.ednaldo.edcommerce.dto;
 
+import com.ednaldo.edcommerce.CategoryDTO;
+import com.ednaldo.edcommerce.entities.Category;
 import com.ednaldo.edcommerce.entities.Product;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDTO implements Serializable {
 
@@ -24,6 +29,9 @@ public class ProductDTO implements Serializable {
 
     private String imgUrl;
 
+    @NotEmpty(message = "Deve ter pelo menos uma categoria.")
+    List<CategoryDTO> categories = new ArrayList<>();
+
     public ProductDTO() {
     }
 
@@ -35,12 +43,15 @@ public class ProductDTO implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public ProductDTO(Product product) {
-        id = product.getId();
-        name = product.getName();
-        description = product.getDescription();
-        price = product.getPrice();
-        imgUrl = product.getImgUrl();
+    public ProductDTO(Product entity) {
+        id = entity.getId();
+        name = entity.getName();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        imgUrl = entity.getImgUrl();
+        for(Category category : entity.getCategories()) {
+            categories.add(new CategoryDTO(category));
+        }
     }
 
     public Long getId() {
@@ -81,5 +92,9 @@ public class ProductDTO implements Serializable {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public List<CategoryDTO> getCategories() {
+        return categories;
     }
 }

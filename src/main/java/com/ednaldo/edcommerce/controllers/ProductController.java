@@ -54,7 +54,7 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO productDTO, @PathVariable Long id) throws Exception {
-        return ResponseEntity.ok(productService.updateProduct(productDTO, id));
+        return ResponseEntity.ok(productService.update(productDTO, id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
