@@ -4,6 +4,7 @@ import com.ednaldo.edcommerce.dto.OrderDTO;
 import com.ednaldo.edcommerce.services.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_CLIENT')")
     @PostMapping
     public ResponseEntity<OrderDTO> insert(@Valid @RequestBody OrderDTO dto) {
-        return ResponseEntity.ok(orderService.insert(dto));
+        OrderDTO orderDTO = orderService.insert(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderDTO);
     }
 }
